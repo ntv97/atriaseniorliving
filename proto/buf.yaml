@@ -1,0 +1,17 @@
+version: v1
+name: buf.build/ntv97/atriaseniorliving
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+lint:
+  use:
+    - DEFAULT
+  ignore_only:
+    PACKAGE_DIRECTORY_MATCH:
+      - items.proto
+    PACKAGE_VERSION_SUFFIX:
+      - items.proto
+    RPC_REQUEST_RESPONSE_UNIQUE:
+      - items.proto
+    RPC_RESPONSE_STANDARD_NAME:
+      - items.proto
