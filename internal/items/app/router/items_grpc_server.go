@@ -2,6 +2,7 @@ package router
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/google/wire"
 	"github.com/pkg/errors"
@@ -28,7 +29,7 @@ func NewItemGRPCServer(
 	svc := itemGRPCServer{
 		uc: uc,
 	}
-
+	fmt.Println("NewItemGRPCServer")
 	gen.RegisterItemServiceServer(grpcServer, &svc)
 
 	reflection.Register(grpcServer)
@@ -40,6 +41,7 @@ func (g *itemGRPCServer) GetItemTypes(
 	ctx context.Context,
 	request *gen.GetItemTypesRequest,
 ) (*gen.GetItemTypesResponse, error) {
+	fmt.Println("Items GetItemTypes")
 	slog.Info("gRPC client", "http_method", "GET", "http_name", "GetItemTypes")
 
 	res := gen.GetItemTypesResponse{}

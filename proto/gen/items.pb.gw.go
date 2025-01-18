@@ -12,7 +12,6 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"fmt"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
@@ -22,6 +21,7 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+	"fmt"
 )
 
 // Suppress "imported and not used" errors
@@ -107,8 +107,10 @@ func local_request_ItemService_GetItemsByType_0(ctx context.Context, marshaler r
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterItemServiceHandlerFromEndpoint instead.
 func RegisterItemServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ItemServiceServer) error {
+	fmt.Println("RegisterItemServiceHandlerServer")
 
 	mux.Handle("GET", pattern_ItemService_GetItemTypes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		fmt.Println("Iterm service handler get item types")
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -116,8 +118,9 @@ func RegisterItemServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/go.coffeeshop.proto.productapi.ItemService/GetItemTypes", runtime.WithHTTPPathPattern("/v1/api/item-types"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/atria.seniorliving.proto.itemsapi.ItemService/GetItemTypes", runtime.WithHTTPPathPattern("/v1/api/item-types"))
 		if err != nil {
+			fmt.Println("annotated context error")
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
@@ -141,7 +144,7 @@ func RegisterItemServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/go.coffeeshop.proto.productapi.ItemService/GetItemsByType", runtime.WithHTTPPathPattern("/v1/api/items-by-types/{item_types}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/atria.seniorliving.proto.itemsapi.ItemService/GetItemsByType", runtime.WithHTTPPathPattern("/v1/api/items-by-types/{item_types}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -190,6 +193,7 @@ func RegisterItemServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.Se
 // RegisterItemServiceHandler registers the http handlers for service ItemService to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
 func RegisterItemServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	fmt.Println("RegisterItemServiceHandle")
 	return RegisterItemServiceHandlerClient(ctx, mux, NewItemServiceClient(conn))
 }
 
@@ -199,14 +203,15 @@ func RegisterItemServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
 // "ItemServiceClient" to call the correct interceptors.
 func RegisterItemServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ItemServiceClient) error {
-
+	fmt.Println("RegisterItemServiceHandlerClient")
 	mux.Handle("GET", pattern_ItemService_GetItemTypes_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		fmt.Println("Register item service handlier client GET!!!")
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/go.coffeeshop.proto.productapi.ItemService/GetItemTypes", runtime.WithHTTPPathPattern("/v1/api/item-types"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/atria.seniorliving.proto.itemsapi.ItemService/GetItemTypes", runtime.WithHTTPPathPattern("/v1/api/item-types"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -228,7 +233,7 @@ func RegisterItemServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/go.coffeeshop.proto.productapi.ItemService/GetItemsByType", runtime.WithHTTPPathPattern("/v1/api/items-by-types/{item_types}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/atria.seniorliving.proto.itemsapi.ItemService/GetItemsByType", runtime.WithHTTPPathPattern("/v1/api/items-by-types/{item_types}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

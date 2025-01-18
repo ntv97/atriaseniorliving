@@ -9,7 +9,7 @@ import (
 type App struct {
 	Cfg               *config.Config
 	UC                itemUC.UseCase
-	ItemGRPCServer gen.ItemServiceServer
+	ItemGRPCServer    gen.ItemServiceServer
 }
 
 func New(
@@ -20,6 +20,6 @@ func New(
 	return &App{
 		Cfg:               cfg,
 		UC:                uc,
-		ItemGRPCServer: itemGRPCServer,
+		ItemGRPCServer:    itemGRPCServer,
 	}
 }

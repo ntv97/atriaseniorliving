@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/wire"
 	"github.com/ntv97/atriaseniorliving/internal/items/domain"
+	"fmt"
 )
 
 var _ domain.ItemRepo = (*itemInMemRepo)(nil)
@@ -83,6 +84,7 @@ func NewOrderRepo() domain.ItemRepo {
 }
 
 func (p *itemInMemRepo) GetAll(ctx context.Context) ([]*domain.ItemTypeDto, error) {
+	fmt.Println("item repo GetAll")
 	results := make([]*domain.ItemTypeDto, 0)
 
 	for _, v := range p.itemTypes {

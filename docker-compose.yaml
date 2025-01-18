@@ -43,6 +43,8 @@ services:
       GRPC_COUNTER_PORT: 5002
     ports:
       - 5000:5000
+    depends_on:
+      - items
     networks:
       - atria-network
 
@@ -61,7 +63,7 @@ services:
     networks:
       - atria-network
 
-  product:
+  items:
     build:
       context: .
       dockerfile: ./docker/Dockerfile-items

@@ -30,8 +30,10 @@ func newGateway(
 	mux := gwruntime.NewServeMux(opts...)
 	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
+	fmt.Println("newGate registering grPC")
 	err := gen.RegisterItemServiceHandlerFromEndpoint(ctx, mux, itemsEndpoint, dialOpts)
 	if err != nil {
+		fmt.Println("ERROR REGISTERING ITERM SERVICE HANDLER")
 		return nil, err
 	}
 
