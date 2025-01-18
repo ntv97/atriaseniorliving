@@ -25,7 +25,6 @@ CREATE TABLE
         id uuid NOT NULL DEFAULT (uuid_generate_v4()),
         order_table integer NOT NULL,
         order_name text NOT NULL,
-	order_type text NOT NULL,
         order_status integer NOT NULL,
         updated timestamp
         with
