@@ -8,12 +8,12 @@ import (
 
 type LineItem struct {
 	ID             uuid.UUID
-        ItemType       int32         
+        ItemType       shared.ItemType        
         ItemName       string        
         OrderName      string        
-        ItemStatus     int32        
+        ItemStatus     shared.Status       
         OrderType      string         
-        OrderID        uuid.NullUUID 
+        OrderID        uuid.UUID
 }
 
 func NewLineItem(itemType shared.ItemType, itemName string, orderName string, itemStatus shared.Status, orderType string) *LineItem {

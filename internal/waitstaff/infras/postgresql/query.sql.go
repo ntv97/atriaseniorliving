@@ -51,7 +51,6 @@ func (q *Queries) CreateOrder(ctx context.Context, arg CreateOrderParams) (Order
 		&i.ID,
 		&i.OrderTable,
 		&i.OrderName,
-		&i.OrderType,
 		&i.OrderStatus,
 		&i.Updated,
 	)
@@ -83,7 +82,6 @@ type GetAllRow struct {
 	LineItemID      uuid.NullUUID `json:"line_item_id"`
 	ItemType        int32         `json:"item_type"`
         ItemName        string        `json:"item_name"`
-        OrderName       string        `json:"order_name"`
         ItemStatus      int32         `json:"item_status"`
 	OrderType       string         `json:"order_type"`
 }
@@ -148,7 +146,6 @@ type GetByIDRow struct {
         LineItemID      uuid.NullUUID `json:"line_item_id"`
         ItemType        int32         `json:"item_type"`
         ItemName        string        `json:"item_name"`
-        OrderName       string        `json:"order_name"`
         ItemStatus      int32         `json:"item_status"`
         OrderType       string         `json:"order_type"`
 }

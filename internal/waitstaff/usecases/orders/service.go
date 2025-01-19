@@ -29,7 +29,7 @@ func NewUseCase(
 	itemsDomainSvc domain.ItemsDomainService,
 	cookEventPub CookEventPublisher,
 	chefEventPub ChefEventPublisher,
-	waistaffEventPub WaitstaffEventPublisher,
+	waitstaffEventPub WaitstaffEventPublisher,
 ) UseCase {
 	return &usecase{
 		orderRepo:        orderRepo,
@@ -87,7 +87,7 @@ func (uc *usecase) PlaceOrder(ctx context.Context, model *domain.PlaceOrderModel
                                 return errors.Wrap(err, "json.Marshal[event]")
                         }
 
-                        uc.waitstaffEventPubEventPub.Publish(ctx, eventBytes, "text/plain")
+                        uc.waitstaffEventPub.Publish(ctx, eventBytes, "text/plain")
                 }
 	}
 

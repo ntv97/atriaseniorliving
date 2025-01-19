@@ -14,14 +14,14 @@ type Order struct {
 	shared.AggregateRoot
 	ID              uuid.UUID
 	OrderTable      shared.OrderTable
-	OrderName	shared.OrderName
+	OrderName	string
 	OrderStatus     shared.Status
 	LineItems       []*LineItem
 }
 
 func NewOrder(
 	orderTable shared.OrderTable,
-	orderName shared.OrderName,
+	orderName string,
 	orderStatus shared.Status,
 ) *Order {
 	return &Order{
@@ -37,26 +37,27 @@ func CreateOrderFrom(
 	request *PlaceOrderModel,
 	itemsDomainSvc ItemsDomainService,
 ) (*Order, error) {
-	order := NewOrder(request.OrderTable, request.OrderName, shared.StatusInProcess)
+	order := NewOrder(request.OrderTable, request.OrderName.String(), shared.StatusInProcess)
 
-	//numberOfBaristaItems := len(request.BaristaItems) > 0
-	//numberOfKitchenItems := len(request.KitchenItems) > 0
+	numberOfCookItems := len(request.CookItems) > 0
+	numberOfChefItems := len(request.ChefItems) > 0
+	numberOfWaitstaffItems := len(request.WaitstaffItems) > 0
 
-	/*if numberOfBaristaItems {
-		itemTypesRes, err := productDomainSvc.GetItemsByType(ctx, request, true)
+	if numberOfCookItems {
+		itemTypesRes, err := itemsDomainSvc.GetItemsByType(ctx, request, shared.Cook.String())
 		if err != nil {
 			return nil, err
 		}
 
-		lo.ForEach(request.BaristaItems, func(item *OrderItemModel, _ int) {
+		lo.ForEach(request.CookItems, func(item *OrderItemModel, _ int) {
 			find, ok := lo.Find(itemTypesRes, func(i *ItemModel) bool {
 				return i.ItemType == item.ItemType
 			})
 
 			if ok {
-				lineItem := NewLineItem(item.ItemType, item.ItemType.String(), float32(find.Price), shared.StatusInProcess, true)
+				lineItem := NewLineItem(item.ItemType, item.ItemType.String(), find.OrderName.String(), shared.StatusInProcess, find.OrderType.String())
 
-				event := events.BaristaOrdered{
+				event := events.CookOrdered{
 					OrderID:    order.ID,
 					ItemLineID: lineItem.ID,
 					ItemType:   item.ItemType,
@@ -73,21 +74,21 @@ func CreateOrderFrom(
 		}
 	}
 
-	if numberOfKitchenItems {
-		itemTypesRes, err := productDomainSvc.GetItemsByType(ctx, request, false)
+	if numberOfChefItems {
+		itemTypesRes, err := itemsDomainSvc.GetItemsByType(ctx, request, shared.Chef.String())
 		if err != nil {
 			return nil, err
 		}
 
-		lo.ForEach(request.KitchenItems, func(item *OrderItemModel, index int) {
+		lo.ForEach(request.ChefItems, func(item *OrderItemModel, index int) {
 			find, ok := lo.Find(itemTypesRes, func(i *ItemModel) bool {
 				return i.ItemType == item.ItemType
 			})
 
 			if ok {
-				lineItem := NewLineItem(item.ItemType, item.ItemType.String(), float32(find.Price), shared.StatusInProcess, false)
+				lineItem := NewLineItem(item.ItemType, item.ItemType.String(), find.OrderName.String(), shared.StatusInProcess, find.OrderType.String())
 
-				event := events.KitchenOrdered{
+				event := events.ChefOrdered{
 					OrderID:    order.ID,
 					ItemLineID: lineItem.ID,
 					ItemType:   item.ItemType,
@@ -102,7 +103,38 @@ func CreateOrderFrom(
 		if err != nil {
 			return nil, err
 		}
-	}*/
+	}
+
+	if numberOfWaitstaffItems {
+                itemTypesRes, err := itemsDomainSvc.GetItemsByType(ctx, request, shared.Waitstaff.String())
+                if err != nil {
+                        return nil, err
+                }
+
+                lo.ForEach(request.WaitstaffItems, func(item *OrderItemModel, index int) {
+                        find, ok := lo.Find(itemTypesRes, func(i *ItemModel) bool {
+                                return i.ItemType == item.ItemType
+                        })
+
+                        if ok {
+				lineItem := NewLineItem(item.ItemType, item.ItemType.String(), find.OrderName.String(), shared.StatusInProcess, find.OrderType.String())
+
+                                event := events.WaitstaffOrdered{
+                                        OrderID:    order.ID,
+                                        ItemLineID: lineItem.ID,
+                                        ItemType:   item.ItemType,
+                                }
+
+                                order.ApplyDomain(event)
+
+                                order.LineItems = append(order.LineItems, lineItem)
+                        }
+                })
+
+                if err != nil {
+                        return nil, err
+                }
+        }
 
 	return order, nil
 }

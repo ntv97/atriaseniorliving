@@ -41,7 +41,7 @@ func (p *itemsGRPCClient) GetItemsByType(
 	model *domain.PlaceOrderModel,
 	orderType string,
 ) ([]*domain.ItemModel, error) {
-	c := gen.NewItemsServiceClient(p.conn)
+	c := gen.NewItemServiceClient(p.conn)
 
 	itemTypes := ""
 	if orderType == "Cook" {

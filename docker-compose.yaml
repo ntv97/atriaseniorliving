@@ -75,5 +75,27 @@ services:
     networks:
       - atria-network
 
+  waitstaff:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-waitstaff
+    image: atria-waitstaff
+    environment:
+      APP_NAME: 'waitstaff-service in docker'
+      IN_DOCKER: "true"
+      PG_URL: postgres://senior:Living!@atria:5432/postgres
+      PG_DSN_URL: host=postgres user=senior password=Living! dbname=atria sslmode=disable
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+      ITEMS_CLIENT_URL: items:5001
+    ports:
+      - 5002:5002
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - atria-network
+
 networks:
   atria-network:

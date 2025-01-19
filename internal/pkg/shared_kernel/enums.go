@@ -107,3 +107,20 @@ func (e OrderName) String() string {
                 "BETTY",
         }[e]
 }
+
+
+type OrderType int32
+
+const (
+        Cook OrderType = iota
+        Chef
+        Waitstaff
+)
+
+func (e OrderType) String() string {
+        return []string{
+                "COOK",
+                "CHEF",
+                "WAITSTAFF",
+        }[e]
+}

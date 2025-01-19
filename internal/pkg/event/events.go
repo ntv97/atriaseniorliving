@@ -30,6 +30,17 @@ func (e ChefOrdered) Identity() string {
 	return "ChefOrdered"
 }
 
+type WaitstaffOrdered struct {
+        shared.DomainEvent
+        OrderID    uuid.UUID       `json:"orderId"`
+        ItemLineID uuid.UUID       `json:"itemLineId"`
+        ItemType   shared.ItemType `json:"itemType"`
+}
+
+func (e WaitstaffOrdered) Identity() string {
+        return "WaitstaffOrdered"
+}
+
 type CookOrderUpdated struct {
 	shared.DomainEvent
 	OrderID    uuid.UUID       `json:"orderId"`

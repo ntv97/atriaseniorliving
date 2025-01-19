@@ -1,0 +1,225 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "waitstaff.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "WaitstaffService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/api/orders": {
+      "post": {
+        "summary": "Place an order",
+        "description": "Place an order on the server.",
+        "operationId": "WaitstaffService_PlaceOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/itemsapiPlaceOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/itemsapiPlaceOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Orders"
+        ]
+      }
+    },
+    "/v1/fulfillment-orders": {
+      "get": {
+        "summary": "List order fulfillment",
+        "description": "List order fulfillment on the server.",
+        "operationId": "WaitstaffService_GetListOrderFulfillment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/itemsapiGetListOrderFulfillmentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Orders"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "itemsapiCommandItem": {
+      "type": "object",
+      "properties": {
+        "itemType": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "itemsapiGetListOrderFulfillmentResponse": {
+      "type": "object",
+      "properties": {
+        "orders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/itemsapiOrderDto"
+          }
+        }
+      }
+    },
+    "itemsapiLineItemDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "itemType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "itemName": {
+          "type": "string"
+        },
+        "orderName": {
+          "type": "string"
+        },
+        "itemStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderType": {
+          "type": "string"
+        }
+      }
+    },
+    "itemsapiOrderDto": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "orderTable": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderName": {
+          "type": "string"
+        },
+        "orderStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lineItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/itemsapiLineItemDto"
+          }
+        }
+      }
+    },
+    "itemsapiPlaceOrderRequest": {
+      "type": "object",
+      "properties": {
+        "commandType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderTable": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orderName": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cookItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/itemsapiCommandItem"
+          }
+        },
+        "chefItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/itemsapiCommandItem"
+          }
+        },
+        "waitstaffItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/itemsapiCommandItem"
+          }
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "itemsapiPlaceOrderResponse": {
+      "type": "object"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

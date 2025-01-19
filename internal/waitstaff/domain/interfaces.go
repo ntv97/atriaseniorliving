@@ -7,7 +7,7 @@ import (
 
 type (
 	ItemsDomainService interface {
-		GetItemsByType(context.Context, *PlaceOrderModel, bool) ([]*ItemModel, error)
+		GetItemsByType(context.Context, *PlaceOrderModel, string) ([]*ItemModel, error)
 	}
 )
 

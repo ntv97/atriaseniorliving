@@ -136,7 +136,7 @@ func (a *App) Worker(ctx context.Context, messages <-chan amqp.Delivery) {
                                 slog.Error("failed to Unmarshal message", err)
                         }
 
-                        err = a.chefHandler.Handle(ctx, &payload)
+                        err = a.waitstaffHandler.Handle(ctx, &payload)
 
                         if err != nil {
                                 if err = delivery.Reject(false); err != nil {

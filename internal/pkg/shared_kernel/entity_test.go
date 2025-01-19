@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	shared "github.com/thangchung/go-coffeeshop/internal/pkg/shared_kernel"
+	shared "github.com/ntv97/atriaseniorliving/internal/pkg/shared_kernel"
 )
 
 func TestNewID(t *testing.T) {

@@ -48,9 +48,9 @@ func InitApp(cfg *config.Config, dbConnStr postgres.DBConnString, rabbitMQConnSt
 		return nil, nil, err
 	}
 	chefEventPublisher := infras.NewCookEventPublisher(eventPublisher)
-	chefEventPublisher := infras.NewChefEventPublisher(eventPublisher)
+	cookEventPublisher := infras.NewCookEventPublisher(eventPublisher)
 	waitstaffEventPublisher := infras.NewWaitstaffEventPublisher(eventPublisher)
-	itemsDomainService, err := grpc2.NewGRPCProductClient(cfg)
+	itemsDomainService, err := grpc2.NewGRPCItemsClient(cfg)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -62,7 +62,7 @@ func InitApp(cfg *config.Config, dbConnStr postgres.DBConnString, rabbitMQConnSt
 	cookOrderUpdatedEventHandler := handlers.NewCookOrderUpdatedEventHandler(orderRepo)
 	chefOrderUpdatedEventHandler := handlers.NewChefOrderUpdatedEventHandler(orderRepo)
 	waitstaffOrderUpdatedEventHandler := handlers.NewWaitstaffOrderUpdatedEventHandler(orderRepo)
-	app := New(cfg, dbEngine, connection, eventPublisher, eventConsumer, cookEventPublisher, chefEventPublisher, waitstaffEventPublisher, itemsDomainService, useCase, waitstaffServiceServer, cookOrderUpdatedEventHandler, chefOrderUpdatedEventHandler, waitstaffUpdatedEventHandler)
+	app := New(cfg, dbEngine, connection, eventPublisher, eventConsumer, cookEventPublisher, chefEventPublisher, waitstaffEventPublisher, itemsDomainService, useCase, waitstaffServiceServer, cookOrderUpdatedEventHandler, chefOrderUpdatedEventHandler, waitstaffOrderUpdatedEventHandler)
 	return app, func() {
 		cleanup2()
 		cleanup()

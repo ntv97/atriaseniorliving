@@ -4,8 +4,8 @@ package repo
 import (
 	"context"
 	"database/sql"
-	"fmt"
-	"strconv"
+	//"fmt"
+	//"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -48,7 +48,7 @@ func (d *orderRepo) GetAll(ctx context.Context) ([]*domain.Order, error) {
 		return &domain.Order{
                         ID:              x.ID,
                         OrderTable:      shared.OrderTable(x.OrderTable),
-                        OrderName:       shared.OrderName(x.OrderName),
+                        OrderName:       x.OrderName,
                         OrderStatus:     shared.Status(x.OrderStatus),
                 }
 	})
@@ -111,7 +111,7 @@ func (d *orderRepo) GetByID(ctx context.Context, id uuid.UUID) (*domain.Order, e
 		return &domain.Order{
                         ID:              x.ID,
                         OrderTable:      shared.OrderTable(x.OrderTable),
-                        OrderName:       shared.OrderName(x.OrderName),
+                        OrderName:       x.OrderName,
                         OrderStatus:     shared.Status(x.OrderStatus),
 		}
 	})

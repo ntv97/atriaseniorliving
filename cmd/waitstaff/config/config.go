@@ -29,8 +29,8 @@ type (
 		URL string `env-required:"true" yaml:"url" env:"RABBITMQ_URL"`
 	}
 
-	ProductClient struct {
-		URL string `env-required:"true" yaml:"url" env:"PRODUCT_CLIENT_URL"`
+	ItemsClient struct {
+		URL string `env-required:"true" yaml:"url" env:"ITEMS_CLIENT_URL"`
 	}
 )
 

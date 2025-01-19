@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	"fmt"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -41,11 +40,9 @@ func NewItemServiceClient(cc grpc.ClientConnInterface) ItemServiceClient {
 }
 
 func (c *itemServiceClient) GetItemTypes(ctx context.Context, in *GetItemTypesRequest, opts ...grpc.CallOption) (*GetItemTypesResponse, error) {
-	fmt.Println("client gRPC item service")
 	out := new(GetItemTypesResponse)
 	err := c.cc.Invoke(ctx, ItemService_GetItemTypes_FullMethodName, in, out, opts...)
 	if err != nil {
-		fmt.Println("gRPC item service client err")
 		return nil, err
 	}
 	return out, nil
@@ -73,7 +70,6 @@ type UnimplementedItemServiceServer struct {
 }
 
 func (UnimplementedItemServiceServer) GetItemTypes(context.Context, *GetItemTypesRequest) (*GetItemTypesResponse, error) {
-	fmt.Println("unimplemented get item types")
 	return nil, status.Errorf(codes.Unimplemented, "method GetItemTypes not implemented")
 }
 func (UnimplementedItemServiceServer) GetItemsByType(context.Context, *GetItemsByTypeRequest) (*GetItemsByTypeResponse, error) {
@@ -88,12 +84,10 @@ type UnsafeItemServiceServer interface {
 }
 
 func RegisterItemServiceServer(s grpc.ServiceRegistrar, srv ItemServiceServer) {
-	fmt.Println("Regiseter Item Service")
 	s.RegisterService(&ItemService_ServiceDesc, srv)
 }
 
 func _ItemService_GetItemTypes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	fmt.Println("****ItemService_GetItemTypes_Handler")
 	in := new(GetItemTypesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
