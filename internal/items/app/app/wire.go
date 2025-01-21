@@ -8,7 +8,7 @@ import (
 	"github.com/ntv97/atriaseniorliving/cmd/items/config"
 	"github.com/ntv97/atriaseniorliving/internal/items/app/router"
 	"github.com/ntv97/atriaseniorliving/internal/items/infras/repo"
-	 itemsUC "github.com/ntv97/atriaseniorliving/internal/items/usecases/products"
+	 itemsUC "github.com/ntv97/atriaseniorliving/internal/items/usecases/items"
 	"google.golang.org/grpc"
 )
 

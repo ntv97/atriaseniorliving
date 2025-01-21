@@ -18,8 +18,8 @@ import (
 	"golang.org/x/exp/slog"
 	"google.golang.org/grpc"
 
-	pkgConsumer "github.com/ntv97/atriaseniorliving/pkg/rabbitmq/consumer"
-	pkgPublisher "github.com/ntv97/atriaseniorliving/pkg/rabbitmq/publisher"
+	//pkgConsumer "github.com/ntv97/atriaseniorliving/pkg/rabbitmq/consumer"
+	//pkgPublisher "github.com/ntv97/atriaseniorliving/pkg/rabbitmq/publisher"
 
 	_ "github.com/lib/pq"
 )

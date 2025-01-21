@@ -26,7 +26,7 @@ func NewOrderRepo() domain.ItemRepo {
 				//Image: "img/COFFEE.png",
 			},
 			"COFFEE_DECAF": {
-				Name:  "COFFEE_BLACK",
+				Name:  "COFFEE_DECAF",
 				Type:  1,
 				Qty: 70,
 				//Image: "img/COFFEE_DECAF.png",
@@ -72,13 +72,49 @@ func NewOrderRepo() domain.ItemRepo {
                                 //iImage: "img/APPLE_JUICE.png",
 
                         },
-			"": {
-                                Name:  "TURKEY_SANDWICH",
-                                Type:  6,
+			"GREEK_SALAD": {
+                                Name:  "GREEK_SALAD",
+                                Type:  8,
                                 Qty: 70,
                                 //iImage: "img/APPLE_JUICE.png",
 
                         },
+			"OMELET": {
+                                Name:  "OMELET",
+                                Type:  9,
+                                Qty: 70,
+                                //iImage: "img/APPLE_JUICE.png",
+
+                        },
+			"FOUR_CHEESE_RAVIOLI": {
+                                Name:  "FOUR_CHEESE_RAVIOLI",
+                                Type:  10,
+                                Qty: 70,
+                                //iImage: "img/APPLE_JUICE.png",
+
+                        },
+			"CAKE": {
+                                Name:  "CAKE",
+                                Type:  11,
+                                Qty: 70,
+                                //iImage: "img/APPLE_JUICE.png",
+
+                        },
+			"COOKIE": {
+                                Name:  "COOKIE",
+                                Type:  12,
+                                Qty: 70,
+                                //iImage: "img/APPLE_JUICE.png",
+
+                        },
+			"CHOCOLATE_ICE_CREAM": {
+                                Name:  "CHOCOLATE_ICE_CREAM",
+                                Type:  13,
+                                Qty: 70,
+                                //iImage: "img/APPLE_JUICE.png",
+
+                        },
+
 		},
 	}
 }
