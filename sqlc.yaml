@@ -6,5 +6,24 @@ sql:
     gen:
       go:
         package: "postgresql"
-        out: "internal/waitstaff/infras/postgresql"
+        out: "internal/cook/infras/postgresql"
         emit_json_tags: true
+
+  - engine: "postgresql"
+    queries: "internal/cook/infras/postgresql/query/query.sql"
+    schema: "db/migrations/000002_init_cookdb.up.sql"
+    gen:
+      go:
+        package: "postgresql"
+        out: "internal/chef/infras/postgresql"
+        emit_json_tags: true
+
+  - engine: "postgresql"
+    queries: "internal/chef/infras/postgresql/query/query.sql"
+    schema: "db/migrations/000003_init_chefdb.up.sql"
+    gen:
+      go:
+        package: "postgresql"
+        out: "internal/chef/infras/postgresql"
+        emit_json_tags: true
+

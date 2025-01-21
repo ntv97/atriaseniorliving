@@ -9,7 +9,7 @@ import (
 	shared "github.com/ntv97/atriaseniorliving/internal/pkg/shared_kernel"
 )
 
-type CookOrder struct {
+type ChefOrder struct {
 	shared.AggregateRoot
 	ID       uuid.UUID
 	OrderID  uuid.UUID
@@ -20,7 +20,7 @@ type CookOrder struct {
 	Updated  time.Time
 }
 
-func NewCookOrder(e event.CookOrdered) CookOrder {
+func NewChefOrder(e event.ChefOrdered) ChefOrder {
 	timeIn := time.Now()
 
 	delay := calculateDelay(e.ItemType)
@@ -28,7 +28,7 @@ func NewCookOrder(e event.CookOrdered) CookOrder {
 
 	timeUp := time.Now().Add(delay)
 
-	order := CookOrder{
+	order := ChefOrder{
 		ID:       e.ItemLineID,
 		OrderID:  e.OrderID,
 		ItemName: e.ItemType.String(),
@@ -38,7 +38,7 @@ func NewCookOrder(e event.CookOrdered) CookOrder {
 		Updated:  time.Now(),
 	}
 
-	orderUpdatedEvent := event.CookOrderUpdated{
+	orderUpdatedEvent := event.ChefOrderUpdated{
 		OrderID:    e.OrderID,
 		ItemLineID: e.ItemLineID,
 		Name:       e.ItemType.String(),
@@ -55,12 +55,10 @@ func NewCookOrder(e event.CookOrdered) CookOrder {
 
 func calculateDelay(itemType shared.ItemType) time.Duration {
 	switch itemType {
-	case shared.ItemTypeChickenCordonBleu:
+	case shared.ItemTypeFourCheeseRavioli:
 		return 7 * time.Second
-	case shared.ItemTypePepperoniPizza:
+	case shared.ItemTypeOmelet:
 		return 7 * time.Second
-	case shared.ItemTypeTurkeySandwich:
-		return 4 * time.Second
 	default:
 		return 3 * time.Second
 	}
