@@ -9,7 +9,7 @@ SELECT
     l.id as "line_item_id",
     item_type,
     item_name,
-    order_name,
+    item_order_name,
     item_status,
     order_type
 FROM "order".orders o
@@ -25,7 +25,7 @@ SELECT
     l.id as "line_item_id",
     item_type,
     item_name,
-    order_name,
+    item_order_name,
     item_status,
     order_type
 FROM "order".orders o
@@ -37,7 +37,7 @@ WHERE o.id = $1;
 INSERT INTO
     "order".orders (
         id,
-        order_source,
+        order_table,
         order_name,
         order_status,
         updated
@@ -51,7 +51,7 @@ INSERT INTO
         id,
         item_type,
         item_name,
-        order_name,
+        item_order_name,
         item_status,
         order_type,
         order_id,

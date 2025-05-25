@@ -37,7 +37,7 @@ CREATE TABLE
         id uuid NOT NULL DEFAULT (uuid_generate_v4()),
         item_type integer NOT NULL,
 	item_name text NOT NULL,
-        order_name text NOT NULL,
+        item_order_name text NOT NULL,
         item_status integer NOT NULL,
         order_type text NOT NULL,
         order_id uuid NULL,
